@@ -7,7 +7,7 @@ using namespace std;
 Player::Player()
 {
 	_name="moron";
-	baseHp=100;
+	baseHp=200;
 	_hp=0;
 	experience=0;
 	lvl=1;
@@ -16,10 +16,11 @@ Player::Player()
 	agility=0;
 	charisma=0;
 	baseDmg=10;
-	weaponDmg=0;
 	wholeDmg=10;
 	wholeHp=100;
 	skillPoints=10;
+	money=0;
+	weaponLvl=0;
 }
 
 string Player::description()
@@ -43,7 +44,7 @@ void Player::setName(string nameAux)
 
 void Player::update()
 {
-	wholeDmg=2*strenght + baseDmg + weaponDmg;
+	wholeDmg=2*strenght + baseDmg + weaponLvl*5;
 	wholeHp=20*vitality + baseHp;
 }
 
@@ -66,8 +67,7 @@ void Player::manageSkillPoints()
 		}
 	}
 	update();
-	cout<<"\nGratulacje! Wszystkie punkty rozdane, oto Twoja postac:\n";
-	cout<<description();
+	cout<<"\nWszystkie punkty rozdane\n";
 }
 
 void Player::takeDmg(int x)
@@ -77,12 +77,31 @@ void Player::takeDmg(int x)
 
 void Player::setExp(int x)
 {
-	experience+=x;
+	experience=x;
 }
 
 void Player::lvlUp()
 {
 	cout<<"\n\nGratulacje!!! Udalo Ci sie osiagnac nastepny poziom\n";
-	skillPoints+=4;
+	skillPoints=4;
 	manageSkillPoints();
+	lvl++;
+	update();
+}
+
+void Player::setMoney(int x)
+{
+	money=x;
+}
+void Player::hpRegen()
+{
+	wholeHp=wholeHp+(baseHp+20*vitality)*(10+vitality)/40;
+	cout<<"Zregenerowales "<<(baseHp+20*vitality)*vitality/40<<" HP\n";
+	if(wholeHp>baseHp+20*vitality)
+		wholeHp=baseHp+20*vitality;
+}
+
+void Player::updateDmgOnly()
+{
+	wholeDmg=2*strenght + baseDmg + weaponLvl*5;
 }

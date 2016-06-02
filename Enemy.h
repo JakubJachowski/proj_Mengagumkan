@@ -24,5 +24,6 @@ public:
 	int getHp() {return hp; };
 	int giveExp() {return experience; }
 
+	string description();
 
 };

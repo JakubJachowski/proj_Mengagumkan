@@ -15,9 +15,10 @@ class Player
 	int lvl;
 	int strenght, vitality, agility, charisma;;
 	int baseDmg;
-	int weaponDmg;
 	int wholeDmg;
 	int skillPoints;
+	int money;
+	int weaponLvl;
 
 public:
 	Player();
@@ -42,6 +43,12 @@ public:
 	void setExp(int);
 	int getExp() {return experience; };
 	int getLvl() {return lvl; };
+	void setMoney(int);
+	int getMoney() {return money; };
+	int getWeaponLvl() {return weaponLvl;};
+	void upgradeWeapon() {weaponLvl++;};
+	void hpRegen();
+	void updateDmgOnly();
 
 	string description();
 
